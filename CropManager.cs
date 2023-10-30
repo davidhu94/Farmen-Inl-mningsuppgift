@@ -35,12 +35,12 @@ namespace Farmen_Inlämningsuppgift
         }
         public void CropMenu()
         {
+            Console.Clear();
             Console.WriteLine("Hello, I'm the animal manager!");
             Console.WriteLine("What do you want to do?");
-            Console.WriteLine("Press \"1\" to view the crops");
+            Console.WriteLine("\nPress \"1\" to view the crops");
             Console.WriteLine("Press \"2\" to add a crop");
             Console.WriteLine("Press \"3\" to remove a crop");
-            Console.WriteLine("Press \"4\" to get crops"); //Ta en crop, välj djur att mata
             Console.WriteLine("Press \"0\" to quit");
 
             try
@@ -57,9 +57,6 @@ namespace Farmen_Inlämningsuppgift
                         break;
                     case 3:
                         RemoveCrop();
-                        break;
-                    case 4:
-                        GetCrops();
                         break;
                     case 0:
                         Console.WriteLine("Closing the program...");
@@ -147,28 +144,11 @@ namespace Farmen_Inlämningsuppgift
         }
         public Crop GetCrops()
         {
-            //Väljer en crop ur listan viewcrops som man ska mata djuret med
-
-            /*foreach (var crop in cropList)
+            for (int i = 0; i < cropList.Count; i++)
             {
-                return crop;
+                Console.WriteLine(cropList[i]);
             }
             return null;
-            */
-
-            Console.WriteLine("Choose a crop by name.");
-            ViewCrops();
-            string selectedCrop = Console.ReadLine();
-            if (cropList.Exists(crop => crop.CropType == selectedCrop))
-            {
-                
-            }
-
-            else
-            {
-                Console.WriteLine("Write a name.");
-            }
-
         }
     }
 }

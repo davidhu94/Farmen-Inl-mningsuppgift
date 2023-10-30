@@ -14,10 +14,12 @@ namespace Farmen_Inlämningsuppgift
 
         public void MainMenu()
         {
-            Console.WriteLine("Welcome to the Farm!");
+            bool continuing = true;
 
-            while (true)
+            while (continuing)
             {
+                Console.Clear();
+                Console.WriteLine("Welcome to the Farm!");
                 Console.WriteLine("Choose below who you would like to contact:");
                 Console.WriteLine("\nPress \"1\" for the animal manager");
                 Console.WriteLine("Press \"2\" for the crop manager");
@@ -38,16 +40,18 @@ namespace Farmen_Inlämningsuppgift
                             break;
                         case 0:
                             Console.WriteLine("Closing the program...");
-                            Environment.Exit(0);
+                            continuing = false;
                             break;
                         default:
                             Console.WriteLine("That is not a valid choice, choose from the menu and try again.");
+                            Console.ReadKey();
                             break;
                     }
                 }
                 catch (FormatException) 
                 {
                     Console.WriteLine($"You can only use numbers, choose from the menu and try again.");
+                    Console.ReadKey();
                 }
             }
         }

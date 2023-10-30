@@ -8,8 +8,10 @@ namespace Farmen_Inlämningsuppgift
 {
     internal class AnimalManager
 
-    {// en tom lista där användaren kan fylla i djur.Kossa, häst, gris, får, hönor, getter
+    {
         CropManager cropmanager = new CropManager();
+        Animal animal = new Animal(0, "");
+
         List<Animal> animalList = new List<Animal>();
 
         Animal animalPig = new Animal("Pig", "Carrot, Apple, Wheat, Potato, Corn, Hay, Beet, Bean, Cabbage, Pepper ", 1, "");
@@ -32,9 +34,10 @@ namespace Farmen_Inlämningsuppgift
 
         public void AnimalMenu()
         {
+            Console.Clear();
             Console.WriteLine("Hello, I'm the animal manager!");
             Console.WriteLine("What do you want to do?");
-            Console.WriteLine("Press \"1\" to view the animals");
+            Console.WriteLine("\nPress \"1\" to view the animals");
             Console.WriteLine("Press \"2\" to add an animal");
             Console.WriteLine("Press \"3\" to remove an animal");
             Console.WriteLine("Press \"4\" to feed the animals"); //välj crop att använda, (get crop)
@@ -174,17 +177,45 @@ namespace Farmen_Inlämningsuppgift
                     Console.WriteLine("Animal was successfully slaughtered :) ");
                     break;
                 }
-
-
-
-
             }
-                //Tar bort ett djur (tex 10grisar - 1)
-            }
-            private string FeedAnimals(string Crop)
+        }
+
+        private void FeedAnimals()
         {
-            //Mata djuret med en gröda du väljer
-            //sedan kallas removecrop och grödan försvinner 
+            Console.WriteLine("Write the ID of the animal you want to feed:");
+
+            ViewAnimals();
+
+            while (true)
+            {
+                int chosenId = int.Parse(Console.ReadLine());
+                
+                if (!animalList.Exists(animal => animal.Id == chosenId))
+                {
+                    Console.WriteLine("There's no animal with that ID, try again");
+                }
+
+                else
+                {
+                    Animal selectedAnimal = animalList.Find(animal => animal.Id == chosenId);
+
+                    Console.WriteLine($"You selected {selectedAnimal.Id}. Now, choose a crop to feed the animal.");
+
+                    while (true)
+                    {
+                        string selectedCropName = Console.ReadLine();
+
+                        Crop chosenCrop = cropmanager.cropList.Find(crop => crop.CropType.ToLower() == selectedCropName.ToLower());
+
+                        if (chosenCrop != null)
+                        {
+                            selectedAnimal.Feed(chosenCrop);
+                            break;
+                        }
+                        Console.WriteLine("The crop does not exist, try again.");
+                    }  
+                }
+            }
         }
     }
 }

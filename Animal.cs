@@ -10,8 +10,15 @@ namespace Farmen_Inlämningsuppgift
     internal class Animal : Entity
     {
         CropManager cropmanager = new CropManager();
+
         public string Species { get; set; }
         private string AcceptableCropTypes;
+        
+        public Animal(int id, string name)
+            : base(id, name)
+        {
+           
+        }
 
         public Animal(string name, string acceptableCropTypes, int id, string species)
             : base(id, name)
@@ -19,6 +26,7 @@ namespace Farmen_Inlämningsuppgift
             Species = species;
             AcceptableCropTypes = acceptableCropTypes;
             Name = name;
+            Id = id;
         }
 
         public override string GetDescription()
@@ -27,19 +35,17 @@ namespace Farmen_Inlämningsuppgift
 
         }
 
-        public string Feed(string Crop)
+        public void Feed(Crop chosenCrop)
         {
-
-            
-            string selectedCrop;
-            Crop selectedCrop = cropList.Find(crop => crop.CropType.ToLower() == cropName);
+            if (AcceptableCropTypes.ToLower().Contains(chosenCrop.CropType.ToLower()))
             {
-
+                Console.WriteLine($"{Name} is happily eating the {chosenCrop.CropType}!");
+                chosenCrop.TakeCrop(1); // You might want to determine the quantity based on animal type.
             }
-        {
-            selectedCrop.Quantity -= 1;
-        }
-
+            else
+            {
+                Console.WriteLine($"{Name} doesn't eat {chosenCrop.CropType}.");
+            }
         }
     }
 }
