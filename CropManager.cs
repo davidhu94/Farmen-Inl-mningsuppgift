@@ -9,16 +9,16 @@ namespace Farmen_Inlämningsuppgift
     internal class CropManager
     {
         public List<Crop> cropList = new List<Crop>();
-        Crop cropCarrot = new Crop("Carrot", 53, 1233, "");
-        Crop cropApple = new Crop("Apple", 25, 1244, "");
-        Crop cropWheat = new Crop("Wheat", 76, 1255, "");
-        Crop cropPotato = new Crop("Potato", 128, 1266, "");
-        Crop cropCorn = new Crop("Corn", 98, 1277, "");
-        Crop cropHay = new Crop("Hay", 44, 1288, "");
-        Crop cropBeet = new Crop("Beet", 37, 1299, "");
-        Crop cropBean = new Crop("Bean", 234, 1211, "");
-        Crop cropCabbage = new Crop("Cabbage", 89, 1222, "");
-        Crop cropPepper = new Crop("Pepper", 77, 1233, "");
+        Crop cropCarrot = new Crop("Carrot", 53, 1233, "Carrot");
+        Crop cropApple = new Crop("Apple", 25, 1244, "Apple");
+        Crop cropWheat = new Crop("Wheat", 76, 1255, "Wheat");
+        Crop cropPotato = new Crop("Potato", 128, 1266, "Potato");
+        Crop cropCorn = new Crop("Corn", 98, 1277, "Corn");
+        Crop cropHay = new Crop("Hay", 44, 1288, "Hay");
+        Crop cropBeet = new Crop("Beet", 37, 1299, "Beet");
+        Crop cropBean = new Crop("Bean", 234, 1211, "Bean");
+        Crop cropCabbage = new Crop("Cabbage", 89, 1222, "Cabbage");
+        Crop cropPepper = new Crop("Pepper", 77, 1233, "Pepper");
 
         public CropManager()
         {
@@ -77,8 +77,9 @@ namespace Farmen_Inlämningsuppgift
         {
             foreach (var crop in cropList)
             {
-                crop.GetDescription();
+                Console.WriteLine(crop.GetDescription());
             }
+            Console.ReadKey();
         }
         private void AddCrop()
         {
@@ -87,7 +88,7 @@ namespace Farmen_Inlämningsuppgift
                 Console.WriteLine("Enter the name of the crop you want to add");
                 string cropName = Console.ReadLine().ToLower();
 
-                if (!cropList.Exists(crop => crop.CropType == cropName))
+                if (cropList.Exists(crop => crop.CropType == cropName))                                     // Någonting stämmer inte här 
                 {
                     Console.WriteLine("We don't grow that crop here! Please choose one of the available crops.");
                 }
@@ -98,13 +99,13 @@ namespace Farmen_Inlämningsuppgift
                     {
                         int cropQuantity = int.Parse(Console.ReadLine());
 
-                        Crop selectedCrop = cropList.Find(crop => crop.CropType.ToLower() == cropName);
+                        Crop selectedCrop = cropList.Find(crop => crop.CropType.ToLower() == cropName);      // Någonting stämmer inte här 
                         selectedCrop.AddCrop(cropQuantity);
 
                         Console.WriteLine($"Added {cropQuantity} of {selectedCrop.CropType}. You now have {selectedCrop.Quantity} of this crop");
                         break;
                     }
-                    catch (FormatException)
+                    catch (Exception ex)                                                                    // Någonting stämmer inte här 
                     {
                         Console.WriteLine("Please enter a valid number.");
                     }

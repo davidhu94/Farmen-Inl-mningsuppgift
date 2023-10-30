@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Farmen_Inlämningsuppgift
 {
@@ -10,12 +11,12 @@ namespace Farmen_Inlämningsuppgift
 
     {
         CropManager cropmanager = new CropManager();
-        Animal animal = new Animal(0, "");
+        //Animal animal = new Animal(0, "");
 
         List<Animal> animalList = new List<Animal>();
 
-        Animal animalPig = new Animal("Pig", "Carrot, Apple, Wheat, Potato, Corn, Hay, Beet, Bean, Cabbage, Pepper ", 1, "");
-        Animal animalHorse = new Animal("Horse", "Carrot, Apple, Hay", 2, "" );
+        Animal animalPig = new Animal("", "Carrot, Apple, Wheat, Potato, Corn, Hay, Beet, Bean, Cabbage, Pepper ", 1, "Pig");
+        Animal animalHorse = new Animal("", "Carrot, Apple, Hay", 2, "Horse");
         Animal animalCow = new Animal("Cow", "Wheat, Hay", 3, "" );
         Animal animalGoat = new Animal("Goat", "Corn, Bean, Pepper", 4, "" );
         Animal animalChicken = new Animal("Chicken", "Wheat, Bean, Potato, Cabbage", 5, "");
@@ -24,12 +25,12 @@ namespace Farmen_Inlämningsuppgift
 
         public AnimalManager()
         {
-            animalList.Add(animalPig);
-            animalList.Add(animalHorse);
-            animalList.Add(animalCow);
-            animalList.Add(animalGoat);
-            animalList.Add(animalChicken);
-            animalList.Add(animalSheep);
+            //animalList.Add(animalPig);
+            //animalList.Add(animalHorse);
+            //animalList.Add(animalCow);
+            //animalList.Add(animalGoat);
+            //animalList.Add(animalChicken);
+            //animalList.Add(animalSheep);
         }
 
         public void AnimalMenu()
@@ -80,10 +81,16 @@ namespace Farmen_Inlämningsuppgift
 
         private void ViewAnimals()
         {
-            foreach (var animal in animalList)
+            foreach (var animal in animalList)                         
             {
-                animal.GetDescription();
+                
+                Console.WriteLine(animal.GetDescription());
+
             }
+            Console.WriteLine("Press a key to continue");
+            Console.ReadKey();
+
+            
         }
         private bool AddAnimal()
         {
@@ -93,7 +100,44 @@ namespace Farmen_Inlämningsuppgift
 
             while (true)
             {
-                int inputId;
+                string inputSpecies;
+                Console.WriteLine("What kind of animal do you want to add? Press 1-6");
+                Console.WriteLine("1. Pig");
+                Console.WriteLine("2. Horse");
+                Console.WriteLine("3. Cow");
+                Console.WriteLine("4. Goat");
+                Console.WriteLine("5. Chicken");
+                Console.WriteLine("6. Sheep");
+                int inputId = int.Parse(Console.ReadLine());
+
+                List<string> acceptableCropTypes = new List<string>();
+                switch (inputId)
+                {
+                    case 1:
+                        //acceptableCropTypes = new List<string> { "Carrot", "Apple", "Wheat", "Potato", "Corn", "Hay", "Beet", "Bean", "Cabbage", "Pepper" };
+                        animalList.Add(animalPig);
+
+                        break;
+                    case 2: 
+                        animalList.Add(animalHorse); 
+                        break;
+                    case 3: 
+                        animalList.Add(animalCow);
+                        break;
+                    case 4:
+                        animalList.Add(animalGoat);
+                        break;
+                    case 5:
+                        animalList.Add(animalChicken);
+                        break;
+                    case 6:
+                        animalList.Add(animalSheep);
+                        break;
+                        default:
+                        Console.WriteLine("Write an animal!");
+                        break;
+
+                }
 
                 Console.WriteLine("Write a unique Id of the animal you want to add: ");
 
@@ -117,28 +161,23 @@ namespace Farmen_Inlämningsuppgift
                     Console.WriteLine("What name?");
                     string inputName = Console.ReadLine();
 
-                    Console.WriteLine("What should it eat?");
-                    Console.WriteLine("You can choose between the listed crops below: ");
+                    
+                    Console.ReadKey();
 
-                    foreach (Crop crop in cropmanager.cropList)
-                    {
-                        Console.WriteLine(crop);
-                    }
+                    //string inputCrop = Console.ReadLine();
+                    //string choosenCrop;
 
-                    string inputCrop = Console.ReadLine().ToLower();
-                    string choosenCrop = "";
+                    //if (!cropmanager.cropList.Exists(crop => crop.CropType == inputCrop))
+                    //{
+                    //    choosenCrop = inputCrop;
+                    //}
+                    //else
+                    //{
+                    //    Console.WriteLine("You need to choose a crop from the list.");
+                    //    continue;
+                    //}
 
-                    if (cropmanager.cropList.Exists(crop => crop.CropType == inputCrop))
-                    {
-                        choosenCrop = inputCrop;
-                    }
-                    else
-                    {
-                        Console.WriteLine("You need to choose a crop from the list.");
-                        continue;
-                    }
-
-                    animalList.Add(new Animal(inputName, choosenCrop, inputId, ""));
+                    animalList.Add(new Animal(inputName, "", inputId, "" ));
                     Console.WriteLine("Your animal was successfully added!");
                     return true;
                 }

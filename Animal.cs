@@ -12,32 +12,28 @@ namespace Farmen_Inlämningsuppgift
         CropManager cropmanager = new CropManager();
 
         public string Species { get; set; }
-        private string AcceptableCropTypes;
+        private List<string> acceptableCropTypes = new List<string>();
+
         
-        public Animal(int id, string name)
-            : base(id, name)
-        {
-           
-        }
+        
 
         public Animal(string name, string acceptableCropTypes, int id, string species)
             : base(id, name)
         {
             Species = species;
-            AcceptableCropTypes = acceptableCropTypes;
             Name = name;
             Id = id;
         }
 
         public override string GetDescription()
         {
-            return ($"This is a: {Species} named {Name} with Id: {Id}, it eats:{AcceptableCropTypes}");
+            return $"This is a: {Name} with Id: {Id}, it eats: {acceptableCropTypes}";
 
         }
 
         public void Feed(Crop chosenCrop)
         {
-            if (AcceptableCropTypes.ToLower().Contains(chosenCrop.CropType.ToLower()))
+            if (acceptableCropTypes.Contains(chosenCrop.CropType.ToLower()))
             {
                 Console.WriteLine($"{Name} is happily eating the {chosenCrop.CropType}!");
                 chosenCrop.TakeCrop(1); // You might want to determine the quantity based on animal type.

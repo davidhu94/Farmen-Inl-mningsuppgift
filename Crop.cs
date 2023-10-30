@@ -16,11 +16,12 @@ namespace Farmen_Inlämningsuppgift
         {
             CropType = cropType;
             Quantity = quantity;
+            Id = id;
         }
 
         public override string GetDescription() //Ger croptype, quantity och id om en specifik gröda.
         {
-            return (CropType + Quantity + Id);
+            return ("Crop: " + CropType + ". With quantity: " + Quantity + " Id: " + Id);
         }
 
         public void AddCrop(int addCropAmount) // Användaren kan lägga till grödor istället för att använda oss av workers.
