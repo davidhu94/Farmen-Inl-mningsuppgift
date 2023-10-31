@@ -116,16 +116,25 @@ namespace Farmen_Inlämningsuppgift
                 Console.WriteLine("4. Goat");
                 Console.WriteLine("5. Chicken");
                 Console.WriteLine("6. Sheep");
- 
+                Console.WriteLine("0. Go back.");
+
                 try
                 {
+                    
                     int inputSpecies = int.Parse(Console.ReadLine());
+                    if (inputSpecies == 0)
+                    {
+                        return false;
+                    }
 
                     if (inputSpecies >= 1 && inputSpecies <= 6)
                     {
                         Console.Clear();
 
                         Console.WriteLine("Write a unique Id of the animal you want to add: ");
+                        Console.WriteLine("0. to go back.");
+                        
+                        
                         int uniqueId;
                         if (int.TryParse(Console.ReadLine(), out uniqueId) && !animalList.Exists(animal => animal.Id == uniqueId))
                         {
@@ -153,6 +162,7 @@ namespace Farmen_Inlämningsuppgift
                                 case 6:
                                     animalList.Add(new Animal(animalSheep.Species, inputName, uniqueId, string.Join(", ", animalSheep.acceptableCropTypes)));
                                     break;
+                               
                             }
                             Console.Clear();
 
