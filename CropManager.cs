@@ -9,16 +9,16 @@ namespace Farmen_Inlämningsuppgift
     internal class CropManager
     {
         public List<Crop> cropList = new List<Crop>();
-        Crop cropCarrot = new Crop("Carrot", 53, 1233, "Carrot");
-        Crop cropApple = new Crop("Apple", 25, 1244, "Apple");
-        Crop cropWheat = new Crop("Wheat", 76, 1255, "Wheat");
-        Crop cropPotato = new Crop("Potato", 128, 1266, "Potato");
-        Crop cropCorn = new Crop("Corn", 98, 1277, "Corn");
-        Crop cropHay = new Crop("Hay", 44, 1288, "Hay");
-        Crop cropBeet = new Crop("Beet", 37, 1299, "Beet");
-        Crop cropBean = new Crop("Bean", 234, 1211, "Bean");
-        Crop cropCabbage = new Crop("Cabbage", 89, 1222, "Cabbage");
-        Crop cropPepper = new Crop("Pepper", 77, 1233, "Pepper");
+        Crop cropCarrot = new Crop("Carrot", 53, 20);
+        Crop cropApple = new Crop("Apple", 25, 21);
+        Crop cropWheat = new Crop("Wheat", 76, 22);
+        Crop cropPotato = new Crop("Potato", 128, 23);
+        Crop cropCorn = new Crop("Corn", 98, 24);
+        Crop cropHay = new Crop("Hay", 44, 25);
+        Crop cropBeet = new Crop("Beet", 37, 26);
+        Crop cropBean = new Crop("Bean", 234, 27);
+        Crop cropCabbage = new Crop("Cabbage", 89, 28);
+        Crop cropPepper = new Crop("Pepper", 77, 29);
 
         public CropManager()
         {

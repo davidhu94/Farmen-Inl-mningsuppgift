@@ -24,7 +24,7 @@ namespace Farmen_Inlämningsuppgift
 
         public override string GetDescription()
         {
-            return $"This is a {Species} named {Name} with Id {Id}, it eats: {string.Join(", ", acceptableCropTypes)}";
+            return $"There is a {Species} named {Name} with Id {Id}, it eats: {string.Join(", ", acceptableCropTypes)}";
 
         }
 

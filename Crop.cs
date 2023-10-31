@@ -11,20 +11,21 @@ namespace Farmen_Inlämningsuppgift
         public string CropType { get; set; }
         public int Quantity { get; set; }
 
-        public Crop(string name, int quantity, int id, string cropType)
-            : base(id, name)
+        public Crop(string cropType, int quantity, int id)
+            : base(id, cropType)
         {
             CropType = cropType;
             Quantity = quantity;
             Id = id;
+            
         }
 
-        public override string GetDescription() //Ger croptype, quantity och id om en specifik gröda.
+        public override string GetDescription() 
         {
-            return ("Crop: " + CropType + ". With quantity: " + Quantity + " Id: " + Id);
+            return ($"Crop: {CropType}. Quantity: {Quantity}. Id: {Id}");
         }
 
-        public void AddCrop(int addCropAmount) // Användaren kan lägga till grödor istället för att använda oss av workers.
+        public void AddCrop(int addCropAmount) 
         {
             if (addCropAmount > 0)
             {
@@ -34,10 +35,9 @@ namespace Farmen_Inlämningsuppgift
             {
                 Console.WriteLine("You need to add something!");
             }
-
-
         }
-        public bool TakeCrop(int takeCropAmount) // användaren kan ta en gröda och ge till ett djur. 
+
+        public bool TakeCrop(int takeCropAmount)  
         {
             if (Quantity < takeCropAmount)
             {
@@ -50,6 +50,5 @@ namespace Farmen_Inlämningsuppgift
                 return true;
             }
         }
-
     }
 }
