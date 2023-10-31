@@ -35,21 +35,19 @@ namespace Farmen_Inlämningsuppgift
             get { return _acceptableCropTypes; }
         }
 
-        public void Feed(Crop chosenCrop)
+        public void Feed(Crop chosenCrop, ref bool failedFeed)
         {
-            CropManager cropManager = new CropManager();
             if (acceptableCropTypes.Contains(chosenCrop.CropType.ToLower()))
-                {
-                    Console.WriteLine($"{Name} is eating the {chosenCrop.CropType}!");
-                    chosenCrop.TakeCrop(1);
-                
-                    
-                }
-                else
-                {
-                    Console.WriteLine($"{Name} doesn't eat {chosenCrop.CropType}, try something else.");
-                }
-            
+            {
+                Console.WriteLine($"\n{Name} is eating the {chosenCrop.CropType}!");
+                chosenCrop.TakeCrop(1);
+                failedFeed = false;
+            }
+            else
+            {
+                Console.WriteLine($"\n{Name} doesn't eat {chosenCrop.CropType}, try something else.");
+                failedFeed = true;
+            }
         }
     }
 }
