@@ -33,6 +33,7 @@ namespace Farmen_Inlämningsuppgift
             cropList.Add(cropCabbage);
             cropList.Add(cropPepper);
         }
+        
         public void CropMenu()
         {
             Console.Clear();
@@ -73,7 +74,7 @@ namespace Farmen_Inlämningsuppgift
             }
         }
 
-        private void ViewCrops()
+       private void ViewCrops()
         {
             foreach (var crop in cropList)
             {
@@ -130,7 +131,8 @@ namespace Farmen_Inlämningsuppgift
                     try
                     {
                         int cropQuantity = int.Parse(Console.ReadLine());
-
+                        
+                        
                         Crop selectedCrop = cropList.Find(crop => crop.CropType.ToLower() == cropName);
                         selectedCrop.TakeCrop(cropQuantity);
 

@@ -13,6 +13,8 @@ namespace Farmen_Inlämningsuppgift
 
         private List<string>_acceptableCropTypes;
 
+        public string Name { get; set; }
+            
         public Animal(string species, string name, int id, string acceptableCropTypesString)
             : base(id, name)
         {
@@ -35,19 +37,19 @@ namespace Farmen_Inlämningsuppgift
 
         public void Feed(Crop chosenCrop)
         {
-            while (true)
-            {
-                if (acceptableCropTypes.Contains(chosenCrop.CropType.ToLower()))
+            CropManager cropManager = new CropManager();
+            if (acceptableCropTypes.Contains(chosenCrop.CropType.ToLower()))
                 {
                     Console.WriteLine($"{Name} is eating the {chosenCrop.CropType}!");
                     chosenCrop.TakeCrop(1);
-                    break;
+                
+                    
                 }
                 else
                 {
                     Console.WriteLine($"{Name} doesn't eat {chosenCrop.CropType}, try something else.");
                 }
-            }
+            
         }
     }
 }

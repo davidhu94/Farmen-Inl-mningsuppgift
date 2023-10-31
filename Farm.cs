@@ -8,6 +8,7 @@ namespace Farmen_Inlämningsuppgift
 {
     internal class Farm
     {
+        
         AnimalManager animalManager = new AnimalManager();
 
         CropManager cropManager = new CropManager();

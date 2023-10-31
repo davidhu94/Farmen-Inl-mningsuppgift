@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -33,46 +34,50 @@ namespace Farmen_Inlämningsuppgift
 
         public void AnimalMenu()
         {
-            Console.Clear();
-            Console.WriteLine("Hello, I'm the animal manager!");
-            Console.WriteLine("What do you want to do?");
-            Console.WriteLine("\nPress \"1\" to view the animals");
-            Console.WriteLine("Press \"2\" to add an animal");
-            Console.WriteLine("Press \"3\" to remove an animal");
-            Console.WriteLine("Press \"4\" to feed the animals");
-            Console.WriteLine("Press \"0\" to quit");
+            
+                Console.Clear();
+                Console.WriteLine("Hello, I'm the animal manager!");
+                Console.WriteLine("What do you want to do?");
+                Console.WriteLine("\nPress \"1\" to view the animals");
+                Console.WriteLine("Press \"2\" to add an animal");
+                Console.WriteLine("Press \"3\" to remove an animal");
+                Console.WriteLine("Press \"4\" to feed the animals");
+                Console.WriteLine("Press \"0\" to quit");
 
-            try
-            {
-                int inputAnimalMenu = int.Parse(Console.ReadLine());
-
-                switch (inputAnimalMenu)
+                try
                 {
-                    case 1:
-                        ViewAnimals();
-                        break;
-                    case 2:
-                        AddAnimal();
-                        break;
-                    case 3:
-                        RemoveAnimal();
-                        break;
-                    case 4:
-                        FeedAnimals();
-                        break;
-                    case 0:
-                        Console.WriteLine("Closing the program...");
-                        Environment.Exit(0);
-                        break;
-                    default:
-                        Console.WriteLine("That is not a valid choice, choose from the menu and try again.");
-                        break;
+                    int inputAnimalMenu = int.Parse(Console.ReadLine());
+
+                    switch (inputAnimalMenu)
+                    {
+                        case 1:
+                            ViewAnimals();
+                            break;
+                        case 2:
+                            AddAnimal();
+                            break;
+                        case 3:
+                            RemoveAnimal();
+                            break;
+                        case 4:
+                            FeedAnimals();
+                            break;
+                        case 0:
+                            Console.WriteLine("Closing the program...");
+                            Environment.Exit(0);
+                            
+                            break;
+                        default:
+                            Console.WriteLine("That is not a valid choice, choose from the menu and try again.");
+                            break;
+                    }
+
                 }
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine($"You can only use numbers, choose from the menu and try again.");
-            }
+                catch (FormatException)
+                {
+                    Console.WriteLine($"You can only use numbers, choose from the menu and try again.");
+                }
+            
         }
 
         private void ViewAnimals()
@@ -211,45 +216,52 @@ namespace Farmen_Inlämningsuppgift
         }
 
         private void FeedAnimals()
-        {
-            ViewAnimals();
-
-            Console.WriteLine("\nWrite the ID of the animal you want to feed:");
-            int chosenId;
-
-            if (int.TryParse(Console.ReadLine(), out chosenId) && animalList.Exists(animal => animal.Id == chosenId))
             {
-                Animal selectedAnimal = animalList.Find(animal => animal.Id == chosenId);
+                ViewAnimals();
 
-                Console.WriteLine($"You selected {selectedAnimal.GetDescription}");
-                Console.WriteLine("Choose a crop from the list to feed the animal:");
+                Console.WriteLine("\nWrite the ID of the animal you want to feed:");
+                int chosenId;
 
-                foreach (var crop in cropmanager.cropList)
+                if (int.TryParse(Console.ReadLine(), out chosenId) && animalList.Exists(animal => animal.Id == chosenId))
                 {
-                    Console.WriteLine(crop.CropType);
-                }
+                    var selectedAnimal = animalList.Find(animal => animal.Id == chosenId);
 
-                while (true)
-                {
-                    string selectedCropName = Console.ReadLine();
+                    Console.WriteLine($"You've selected the {selectedAnimal.Species} named {selectedAnimal.Name}");
+                    Console.WriteLine("\nChoose a crop from the list to feed the animal:");
 
-                    Crop chosenCrop = cropmanager.cropList.Find(crop => crop.CropType.ToLower() == selectedCropName.ToLower());
-
-                    if (chosenCrop != null)
+                    foreach (var crop in cropmanager.cropList)
                     {
-                        selectedAnimal.Feed(chosenCrop);
+                        Console.WriteLine(crop.CropType);
+                    }
+
+                    while (true)
+                    {
+                        string selectedCropName = Console.ReadLine();
+
+                        Crop chosenCrop = cropmanager.cropList.Find(crop => crop.CropType.ToLower() == selectedCropName.ToLower());
+
+                        if (chosenCrop != null)
+                        {
+
+                            Console.WriteLine($"You try to feed {selectedAnimal.Name} with {chosenCrop.CropType} ");
+                            selectedAnimal.Feed(chosenCrop);
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("The selected crop does not exist, choose from the list above.");
+                        }
+
+                        Console.ReadKey();
                         break;
                     }
-                    else
-                    {
-                        Console.WriteLine("The selected crop does not exist, choose from the list above.");
-                    }
+
                 }
-            }
-            else
-            {
-                Console.WriteLine("There's no animal with that ID, try again.");
-            }
+                else
+                {
+                    Console.WriteLine("There's no animal with that ID, try again.");
+                }
+            
         }        
     }
 }

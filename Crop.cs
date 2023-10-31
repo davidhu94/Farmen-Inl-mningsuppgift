@@ -8,6 +8,7 @@ namespace Farmen_Inlämningsuppgift
 {
     internal class Crop : Entity
     {
+        
         public string CropType { get; set; }
         public int Quantity { get; set; }
 
@@ -17,6 +18,7 @@ namespace Farmen_Inlämningsuppgift
             CropType = cropType;
             Quantity = quantity;
             Id = id;
+
             
         }
 
@@ -39,6 +41,7 @@ namespace Farmen_Inlämningsuppgift
 
         public bool TakeCrop(int takeCropAmount)  
         {
+            
             if (Quantity < takeCropAmount)
             {
                 Console.WriteLine("You don't have enough crops.");
@@ -46,7 +49,11 @@ namespace Farmen_Inlämningsuppgift
             }
             else
             {
+                
                 Quantity -= takeCropAmount;
+                Console.WriteLine($" nu är quantity {Quantity}");
+                
+                Console.ReadKey();
                 return true;
             }
         }
