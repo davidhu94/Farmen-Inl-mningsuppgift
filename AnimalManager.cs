@@ -11,26 +11,24 @@ namespace Farmen_Inlämningsuppgift
 
     {
         CropManager cropmanager = new CropManager();
-        //Animal animal = new Animal(0, "");
 
         List<Animal> animalList = new List<Animal>();
-
-        Animal animalPig = new Animal("", "Carrot, Apple, Wheat, Potato, Corn, Hay, Beet, Bean, Cabbage, Pepper ", 1, "Pig");
-        Animal animalHorse = new Animal("", "Carrot, Apple, Hay", 2, "Horse");
-        Animal animalCow = new Animal("Cow", "Wheat, Hay", 3, "" );
-        Animal animalGoat = new Animal("Goat", "Corn, Bean, Pepper", 4, "" );
-        Animal animalChicken = new Animal("Chicken", "Wheat, Bean, Potato, Cabbage", 5, "");
-        Animal animalSheep = new Animal("Sheep", "Beet, Hay, Wheat, Apple", 6, "");
-
+                                                                         //BYT NAMN PÅ DJUREN
+        Animal animalPig = new Animal("Pig","Joe",1, "Carrot, Apple, Wheat, Potato, Corn, Hay, Beet, Bean, Cabbage, Pepper ");
+        Animal animalHorse = new Animal("Horse", "Joe", 2, "Carrot, Apple, Hay");
+        Animal animalCow = new Animal("Cow", "Joe", 3, "Wheat, Hay");
+        Animal animalGoat = new Animal("Goat", "Joe", 4, "Corn, Bean, Pepper");
+        Animal animalChicken = new Animal("Chicken", "Joe", 5, "Wheat, Bean, Potato, Cabbage");
+        Animal animalSheep = new Animal("Sheep", "Joe", 6, "Beet, Hay, Wheat, Apple");
 
         public AnimalManager()
         {
-            //animalList.Add(animalPig);
-            //animalList.Add(animalHorse);
-            //animalList.Add(animalCow);
-            //animalList.Add(animalGoat);
-            //animalList.Add(animalChicken);
-            //animalList.Add(animalSheep);
+            animalList.Add(animalPig);
+            animalList.Add(animalHorse);
+            animalList.Add(animalCow);
+            animalList.Add(animalGoat);
+            animalList.Add(animalChicken);
+            animalList.Add(animalSheep);
         }
 
         public void AnimalMenu()
@@ -41,7 +39,7 @@ namespace Farmen_Inlämningsuppgift
             Console.WriteLine("\nPress \"1\" to view the animals");
             Console.WriteLine("Press \"2\" to add an animal");
             Console.WriteLine("Press \"3\" to remove an animal");
-            Console.WriteLine("Press \"4\" to feed the animals"); //välj crop att använda, (get crop)
+            Console.WriteLine("Press \"4\" to feed the animals");
             Console.WriteLine("Press \"0\" to quit");
 
             try
@@ -77,21 +75,24 @@ namespace Farmen_Inlämningsuppgift
             }
         }
 
-
-
         private void ViewAnimals()
         {
-            foreach (var animal in animalList)                         
+            if(animalList.Count <= 0)
             {
-                
+                Console.WriteLine("The farm is empty, go and add some animals!");
+                Console.ReadKey();
+                AnimalMenu();
+            }
+            foreach (var animal in animalList)
+            {
                 Console.WriteLine(animal.GetDescription());
-
             }
             Console.WriteLine("Press a key to continue");
             Console.ReadKey();
 
             
         }
+
         private bool AddAnimal()
         {
             Console.WriteLine("This is all the animals on the farm: ");
@@ -100,7 +101,6 @@ namespace Farmen_Inlämningsuppgift
 
             while (true)
             {
-                string inputSpecies;
                 Console.WriteLine("What kind of animal do you want to add? Press 1-6");
                 Console.WriteLine("1. Pig");
                 Console.WriteLine("2. Horse");
@@ -108,78 +108,51 @@ namespace Farmen_Inlämningsuppgift
                 Console.WriteLine("4. Goat");
                 Console.WriteLine("5. Chicken");
                 Console.WriteLine("6. Sheep");
-                int inputId = int.Parse(Console.ReadLine());
-
-                List<string> acceptableCropTypes = new List<string>();
-                switch (inputId)
-                {
-                    case 1:
-                        //acceptableCropTypes = new List<string> { "Carrot", "Apple", "Wheat", "Potato", "Corn", "Hay", "Beet", "Bean", "Cabbage", "Pepper" };
-                        animalList.Add(animalPig);
-
-                        break;
-                    case 2: 
-                        animalList.Add(animalHorse); 
-                        break;
-                    case 3: 
-                        animalList.Add(animalCow);
-                        break;
-                    case 4:
-                        animalList.Add(animalGoat);
-                        break;
-                    case 5:
-                        animalList.Add(animalChicken);
-                        break;
-                    case 6:
-                        animalList.Add(animalSheep);
-                        break;
-                        default:
-                        Console.WriteLine("Write an animal!");
-                        break;
-
-                }
-
-                Console.WriteLine("Write a unique Id of the animal you want to add: ");
 
                 try
                 {
-                    inputId = int.Parse(Console.ReadLine());
+                    int inputSpecies = int.Parse(Console.ReadLine());
+
+                    if (inputSpecies >= 1 && inputSpecies <= 6)
+                    {
+                        Console.WriteLine("Write a unique Id of the animal you want to add: ");
+                        int uniqueId;
+                        if (int.TryParse(Console.ReadLine(), out uniqueId) && !animalList.Exists(animal => animal.Id == uniqueId))
+                        {
+                            Console.WriteLine("What name?");
+                            string inputName = Console.ReadLine();
+                            switch (inputSpecies)
+                            {                                        //VI MÅSTE ÄNDRA SÅ ATT inputSpecies BLIR ARTEN AV DJURET NÄR DET LÄGGS TILL
+                                case 1:
+                                    animalList.Add(new Animal(inputSpecies.ToString(), inputName, uniqueId, string.Join(", ", animalPig.acceptableCropTypes)));
+                                    break;
+                                case 2:
+                                    animalList.Add(new Animal(inputSpecies.ToString(), inputName, uniqueId, string.Join(", ", animalHorse.acceptableCropTypes)));
+                                    break;
+                                case 3:
+                                    animalList.Add(new Animal(inputSpecies.ToString(), inputName, uniqueId, string.Join(", ", animalCow.acceptableCropTypes)));
+                                    break;
+                                case 4:
+                                    animalList.Add(new Animal(inputSpecies.ToString(), inputName, uniqueId, string.Join(", ", animalGoat.acceptableCropTypes)));
+                                    break;
+                                case 5:
+                                    animalList.Add(new Animal(inputSpecies.ToString(), inputName, uniqueId, string.Join(", ", animalChicken.acceptableCropTypes)));
+                                    break;
+                                case 6:
+                                    animalList.Add(new Animal(inputSpecies.ToString(), inputName, uniqueId, string.Join(", ", animalSheep.acceptableCropTypes)));
+                                    break;
+                                default:
+                                    Console.WriteLine("Create an animal by pressing one of the numbers (1-6)");
+                                    break;
+                            }
+                            Console.WriteLine("Your animal was successfully added!");
+                            return true;
+                        }
+                    }
                 }
-                catch(FormatException)
+                catch (FormatException)
                 {
-                    Console.WriteLine("You can only use numbers.");
-                    continue;
-                }
-
-                if(animalList.Exists(animal => animal.Id == inputId))
-                {
-                    Console.WriteLine("This ID already exists, choose another one");
-                    continue;
-                }
-                else
-                {
-                    Console.WriteLine("What name?");
-                    string inputName = Console.ReadLine();
-
-                    
-                    Console.ReadKey();
-
-                    //string inputCrop = Console.ReadLine();
-                    //string choosenCrop;
-
-                    //if (!cropmanager.cropList.Exists(crop => crop.CropType == inputCrop))
-                    //{
-                    //    choosenCrop = inputCrop;
-                    //}
-                    //else
-                    //{
-                    //    Console.WriteLine("You need to choose a crop from the list.");
-                    //    continue;
-                    //}
-
-                    animalList.Add(new Animal(inputName, "", inputId, "" ));
-                    Console.WriteLine("Your animal was successfully added!");
-                    return true;
+                    Console.WriteLine("Create an animal by pressing one of the numbers (1-6)");
                 }
             }
         }
@@ -222,39 +195,43 @@ namespace Farmen_Inlämningsuppgift
         private void FeedAnimals()
         {
             Console.WriteLine("Write the ID of the animal you want to feed:");
-
             ViewAnimals();
 
-            while (true)
+            int chosenId;
+
+            if (int.TryParse(Console.ReadLine(), out chosenId) && animalList.Exists(animal => animal.Id == chosenId))
             {
-                int chosenId = int.Parse(Console.ReadLine());
-                
-                if (!animalList.Exists(animal => animal.Id == chosenId))
+                Animal selectedAnimal = animalList.Find(animal => animal.Id == chosenId);
+
+                Console.WriteLine($"You selected {selectedAnimal.GetDescription}");
+                Console.WriteLine("Choose a crop from the list to feed the animal:");
+
+                foreach (var crop in cropmanager.cropList)
                 {
-                    Console.WriteLine("There's no animal with that ID, try again");
+                    Console.WriteLine(crop.CropType);
                 }
 
-                else
+                while (true)
                 {
-                    Animal selectedAnimal = animalList.Find(animal => animal.Id == chosenId);
+                    string selectedCropName = Console.ReadLine();
 
-                    Console.WriteLine($"You selected {selectedAnimal.Id}. Now, choose a crop to feed the animal.");
+                    Crop chosenCrop = cropmanager.cropList.Find(crop => crop.CropType.ToLower() == selectedCropName.ToLower());
 
-                    while (true)
+                    if (chosenCrop != null)
                     {
-                        string selectedCropName = Console.ReadLine();
-
-                        Crop chosenCrop = cropmanager.cropList.Find(crop => crop.CropType.ToLower() == selectedCropName.ToLower());
-
-                        if (chosenCrop != null)
-                        {
-                            selectedAnimal.Feed(chosenCrop);
-                            break;
-                        }
-                        Console.WriteLine("The crop does not exist, try again.");
-                    }  
+                        selectedAnimal.Feed(chosenCrop);
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("The selected crop does not exist, choose from the list above.");
+                    }
                 }
             }
-        }
+            else
+            {
+                Console.WriteLine("There's no animal with that ID, try again.");
+            }
+        }        
     }
 }

@@ -79,6 +79,7 @@ namespace Farmen_Inlämningsuppgift
             {
                 Console.WriteLine(crop.GetDescription());
             }
+            Console.WriteLine("Press a key to continue");
             Console.ReadKey();
         }
         private void AddCrop()

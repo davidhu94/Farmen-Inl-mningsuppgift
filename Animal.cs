@@ -9,38 +9,44 @@ namespace Farmen_Inlämningsuppgift
 {
     internal class Animal : Entity
     {
-        CropManager cropmanager = new CropManager();
-
         public string Species { get; set; }
-        private List<string> acceptableCropTypes = new List<string>();
 
-        
-        
+        private List<string>_acceptableCropTypes;
 
-        public Animal(string name, string acceptableCropTypes, int id, string species)
+        public Animal(string species, string name, int id, string acceptableCropTypesString)
             : base(id, name)
         {
             Species = species;
             Name = name;
             Id = id;
+            _acceptableCropTypes = acceptableCropTypesString.Split(',').Select(s => s.Trim().ToLower()).ToList();
         }
 
         public override string GetDescription()
         {
-            return $"This is a: {Name} with Id: {Id}, it eats: {acceptableCropTypes}";
+            return $"This is a {Species} named {Name} with Id {Id}, it eats: {string.Join(", ", acceptableCropTypes)}";
 
+        }
+
+        public List<string> acceptableCropTypes
+        {
+            get { return _acceptableCropTypes; }
         }
 
         public void Feed(Crop chosenCrop)
         {
-            if (acceptableCropTypes.Contains(chosenCrop.CropType.ToLower()))
+            while (true)
             {
-                Console.WriteLine($"{Name} is happily eating the {chosenCrop.CropType}!");
-                chosenCrop.TakeCrop(1); // You might want to determine the quantity based on animal type.
-            }
-            else
-            {
-                Console.WriteLine($"{Name} doesn't eat {chosenCrop.CropType}.");
+                if (acceptableCropTypes.Contains(chosenCrop.CropType.ToLower()))
+                {
+                    Console.WriteLine($"{Name} is eating the {chosenCrop.CropType}!");
+                    chosenCrop.TakeCrop(1);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"{Name} doesn't eat {chosenCrop.CropType}, try something else.");
+                }
             }
         }
     }
