@@ -8,13 +8,14 @@ namespace Farmen_Inlämningsuppgift
 {
     internal class Farm
     {
-        
+        CropManager cropManager = new CropManager();
         AnimalManager animalManager = new AnimalManager();
 
-        CropManager cropManager = new CropManager();
+        
 
         public void MainMenu()
         {
+            animalManager.cropmanager = cropManager;
             bool continuing = true;
 
             while (continuing)

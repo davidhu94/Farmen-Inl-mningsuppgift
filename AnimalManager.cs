@@ -10,7 +10,7 @@ namespace Farmen_Inlämningsuppgift
 {
     internal class AnimalManager
     {
-        CropManager cropmanager = new CropManager();
+        public CropManager cropmanager;
 
         List<Animal> animalList = new List<Animal>();
         //BYT NAMN PÅ DJUREN
@@ -102,7 +102,7 @@ namespace Farmen_Inlämningsuppgift
 
             while (true)
             {
-                Console.Clear();
+                //Console.Clear();
 
                 Console.WriteLine("What kind of animal do you want to add? Press 1-6");
                 Console.WriteLine("1. Pig");
@@ -124,7 +124,7 @@ namespace Farmen_Inlämningsuppgift
 
                     if (inputSpecies >= 1 && inputSpecies <= 6)
                     {
-                        Console.Clear();
+                        //Console.Clear();
 
                         Console.WriteLine("Write a unique Id of the animal you want to add: ");
 
@@ -134,7 +134,7 @@ namespace Farmen_Inlämningsuppgift
                         {
                             if(!animalList.Exists(animal => animal.Id == uniqueId))
                             {
-                                Console.Clear();
+                                //Console.Clear();
 
                                 Console.WriteLine("What name?");
                                 string inputName = Console.ReadLine();
@@ -248,64 +248,77 @@ namespace Farmen_Inlämningsuppgift
 
             Console.WriteLine("\nWrite the ID of the animal you want to feed:");
             Console.WriteLine("Press \"0\" to go back");
-            int chosenId;
-
-            if (!int.TryParse(Console.ReadLine(), out chosenId))
+            int chosenId = int.Parse(Console.ReadLine());
+            while (chosenId > animalList.Capacity) 
             {
-                Console.WriteLine("Please enter a valid number.");
-                return;
+                Console.WriteLine("Write an valid ID.");
+                continue;
             }
-
-            if (chosenId == 0)
+            try
             {
-                AnimalMenu();
-                return;
-            }
-
-            if (animalList.Exists(animal => animal.Id == chosenId))
-            {
-                var selectedAnimal = animalList.Find(animal => animal.Id == chosenId);
-
-                Console.WriteLine($"\nYou've selected the {selectedAnimal.Species} named {selectedAnimal.Name}");
-                Console.WriteLine("\nChoose a crop from the list to feed the animal:");
-
-                foreach (var crop in cropmanager.cropList)
+                
                 {
-                    Console.WriteLine(crop.CropType);
+                    Console.WriteLine("Please enter a valid number.");
+                    Console.ReadKey();
+                    return;
+                }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("You need to write a number.");
+            }
+            
+                if (chosenId == 0)
+                {
+                    AnimalMenu();
+                    return;
                 }
 
-                while (true)
+                if (animalList.Exists(animal => animal.Id == chosenId))
                 {
-                    string selectedCropName = Console.ReadLine();
+                    var selectedAnimal = animalList.Find(animal => animal.Id == chosenId);
 
-                    Crop chosenCrop = cropmanager.cropList.Find(crop => crop.CropType.ToLower() == selectedCropName.ToLower());
+                    Console.WriteLine($"\nYou've selected the {selectedAnimal.Species} named {selectedAnimal.Name}");
+                    Console.WriteLine("\nChoose a crop from the list to feed the animal:");
 
-                    if (chosenCrop != null)
+                    foreach (var crop in cropmanager.cropList)
                     {
-                        bool failedFeed = false;
-                        selectedAnimal.Feed(chosenCrop, ref failedFeed);
+                        Console.WriteLine(crop.CropType);
+                    }
 
-                        if (failedFeed) 
+                    while (true)
+                    {
+                        string selectedCropName = Console.ReadLine();
+
+                        Crop chosenCrop = cropmanager.cropList.Find(crop => crop.CropType.ToLower() == selectedCropName.ToLower());
+
+                        if (chosenCrop != null)
                         {
-                            continue;   
+                            bool failedFeed = false;
+                            selectedAnimal.Feed(chosenCrop, ref failedFeed);
+
+                            if (failedFeed)
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                break;
+                            }
                         }
                         else
                         {
-                            break;  
+                            Console.WriteLine("The selected crop does not exist, choose from the list above.");
                         }
+                        Console.ReadKey();
                     }
-                    else
-                    {
-                        Console.WriteLine("The selected crop does not exist, choose from the list above.");
-                    }
-                    Console.ReadKey();
+                    AnimalMenu();
                 }
-                AnimalMenu();
-            }
-            else
-            {
-                Console.WriteLine("There's no animal with that ID, try again.");
-            }
+                else
+                {
+                    Console.WriteLine("There's no animal with that ID, try again.");
+                }
+            
         }
     }
 }      
