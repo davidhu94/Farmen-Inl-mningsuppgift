@@ -33,43 +33,50 @@ namespace Farmen_Inlämningsuppgift
 
         public void AnimalMenu()
         {
-            Console.Clear();
-            Console.WriteLine("Hello, I'm the animal manager!");
-            Console.WriteLine("What do you want to do?");
-            Console.WriteLine("\nPress \"1\" to view the animals");
-            Console.WriteLine("Press \"2\" to add an animal");
-            Console.WriteLine("Press \"3\" to remove an animal");
-            Console.WriteLine("Press \"4\" to feed the animals");
-            Console.WriteLine("Press \"0\" to go back");
-
-            try
+            bool continuing = true;
+            while (continuing)
             {
-                int inputAnimalMenu = int.Parse(Console.ReadLine());
-
-                switch (inputAnimalMenu)
+                Console.Clear();
+                Console.WriteLine("Hello, I'm the animal manager!");
+                Console.WriteLine("What do you want to do?");
+                Console.WriteLine("\nPress \"1\" to view the animals");
+                Console.WriteLine("Press \"2\" to add an animal");
+                Console.WriteLine("Press \"3\" to remove an animal");
+                Console.WriteLine("Press \"4\" to feed the animals");
+                Console.WriteLine("Press \"0\" to go back");     // Varje gång vi går in i en meny, behöver vi trycka på 0 flera gånger för att gå bakåt.
+                                                                
+                try
                 {
-                    case 1:
-                        ViewAnimals(true);
-                        break;
-                    case 2:
-                        AddAnimal();
-                        break;
-                    case 3:
-                        RemoveAnimal();
-                        break;
-                    case 4:
-                        FeedAnimals();
-                        break;
-                    case 0:
-                        return;
-                    default:
-                        Console.WriteLine("That is not a valid choice, choose from the menu and try again.");
-                        break;
+                    int inputAnimalMenu = int.Parse(Console.ReadLine());
+
+                    switch (inputAnimalMenu)
+                    {
+                        case 1:
+                            ViewAnimals(true);
+                            break;
+                        case 2:
+                            AddAnimal();
+                            break;
+                        case 3:
+                            RemoveAnimal();
+                            break;
+                        case 4:
+                            FeedAnimals();
+                            break;
+                        case 0:
+                            return;
+                        default:
+                            Console.WriteLine("That is not a valid choice, choose from the menu and try again.");
+                            Console.ReadKey();
+                            break;
+                    }
                 }
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine($"You can only use numbers, try again.");
+                catch (FormatException)
+                {
+                    Console.WriteLine($"You can only use numbers, try again.");
+                    Console.ReadKey();
+
+                }
             }
         }
 
@@ -258,9 +265,10 @@ namespace Farmen_Inlämningsuppgift
                     continue;
                 }
 
-                if (chosenId == 0)
+                if (chosenId == 0)  
                 {
                     AnimalMenu();
+                    break;
                 }
 
                 if (animalList.Exists(animal => animal.Id == chosenId))

@@ -36,117 +36,149 @@ namespace Farmen_Inlämningsuppgift
         
         public void CropMenu()
         {
-            Console.Clear();
-            Console.WriteLine("Hello, I'm the animal manager!");
-            Console.WriteLine("What do you want to do?");
-            Console.WriteLine("\nPress \"1\" to view the crops");
-            Console.WriteLine("Press \"2\" to add a crop");
-            Console.WriteLine("Press \"3\" to remove a crop");
-            Console.WriteLine("Press \"0\" to quit");
-
-            try
+            bool continuing = true;
+            while (continuing)
             {
-                int inputCropMenu = int.Parse(Console.ReadLine());
+                Console.Clear();
+                Console.WriteLine("Hello, I'm the Crop Manager!");
+                Console.WriteLine("What do you want to do?");
+                Console.WriteLine("\nPress \"1\" to view the crops");
+                Console.WriteLine("Press \"2\" to add a crop");
+                Console.WriteLine("Press \"3\" to remove a crop");
+                Console.WriteLine("Press \"0\" to go back");
 
-                switch (inputCropMenu)
+                try
                 {
-                    case 1:
-                        ViewCrops();
-                        break;
-                    case 2:
-                        AddCrop();
-                        break;
-                    case 3:
-                        RemoveCrop();
-                        break;
-                    case 0:
-                        Console.WriteLine("Closing the program...");
-                        Environment.Exit(0);
-                        break;
-                    default:
-                        Console.WriteLine("That is not a valid choice, choose from the menu and try again.");
-                        break;
+                    int inputCropMenu = int.Parse(Console.ReadLine());
+
+                    switch (inputCropMenu)
+                    {
+                        case 1:
+                            ViewCrops();
+                            break;
+                        case 2:
+                            AddCrop();
+                            break;
+                        case 3:
+                            RemoveCrop();
+                            break;
+                        case 0:
+                            return;
+                        default:
+                            Console.WriteLine("That is not a valid choice, choose from the menu and try again.");
+                            Console.ReadKey();
+                            break;
+                    }
                 }
-            }
-            catch (FormatException) 
-            {
-                Console.WriteLine($"You can only use numbers, choose from the menu and try again.");
+                catch (FormatException)
+                {
+                    Console.WriteLine($"You can only use numbers, choose from the menu and try again.");
+                    Console.ReadKey();
+                }
             }
         }
 
-       private void ViewCrops()
+       private void ViewCrops(bool returnToMenu = false)
         {
+            Console.WriteLine("This is the crops we grow on the farm: ");
             foreach (var crop in cropList)
             {
                 Console.WriteLine(crop.GetDescription());
             }
             Console.WriteLine("Press a key to continue");
             Console.ReadKey();
+            
+
+            if (returnToMenu == false)
+            {
+                CropMenu();
+                
+            }
         }
         private void AddCrop()
         {
+            ViewCrops(true);
             while (true)
             {
-                Console.WriteLine("Enter the name of the crop you want to add");
-                string cropName = Console.ReadLine().ToLower();
+                Console.WriteLine("\nEnter the name of the crop you want to add:");
+                string cropName = Console.ReadLine();
 
-                if (cropList.Exists(crop => crop.CropType == cropName))                                     // Någonting stämmer inte här 
+                if (!cropList.Exists(crop => string.Equals(crop.CropType, cropName, StringComparison.OrdinalIgnoreCase)))
+            
                 {
                     Console.WriteLine("We don't grow that crop here! Please choose one of the available crops.");
+                    
                 }
-                else
+                
+                else if (cropList.Exists(crop => string.Equals(crop.CropType, cropName, StringComparison.OrdinalIgnoreCase)))
+             
                 {
-                    Console.WriteLine("Enter the amount of the crop you want to add.");
-                    try
+                    Console.WriteLine("Enter the amount of the crop you want to add:");
+                    while (true)
                     {
-                        int cropQuantity = int.Parse(Console.ReadLine());
+                        try
+                        {
+                            int cropQuantity = int.Parse(Console.ReadLine());
 
-                        Crop selectedCrop = cropList.Find(crop => crop.CropType.ToLower() == cropName);      // Någonting stämmer inte här 
-                        selectedCrop.AddCrop(cropQuantity);
+                            Crop selectedCrop = cropList.Find(crop => crop.CropType.ToLower() == cropName);      
+                            selectedCrop.AddCrop(cropQuantity);
+                            Console.Clear();
+                            Console.WriteLine($"You've added {cropQuantity} {selectedCrop.CropType}. You now have {selectedCrop.Quantity} of this crop.");
+                            Console.WriteLine("Press a key to go back to Crop Manager.");
+                            Console.ReadKey();
+                            CropMenu();
 
-                        Console.WriteLine($"Added {cropQuantity} of {selectedCrop.CropType}. You now have {selectedCrop.Quantity} of this crop");
-                        break;
-                    }
-                    catch (Exception ex)                                                                    // Någonting stämmer inte här 
-                    {
-                        Console.WriteLine("Please enter a valid number.");
+
+                        }
+                        catch (Exception ex)                                                                
+                        {
+                            Console.WriteLine("Please enter a valid number.");
+                        }
                     }
                 }
             }
         }
         private void RemoveCrop()
         {
+            ViewCrops(true);
             while (true)
             {
-                Console.WriteLine("Enter the name of the crop you want to remove");
-                string cropName = Console.ReadLine().ToLower();
+                Console.WriteLine("\nEnter the name of the crop you want to remove:");  // Man ska kunna gå bakåt. Vi har en sån funktion i feed animal.
+                string cropName = Console.ReadLine();                                   // Även i flera menyer ska man kunna gå bakåt.
 
-                if (!cropList.Exists(crop => crop.CropType == cropName))
+                if (!cropList.Exists(crop => string.Equals(crop.CropType, cropName, StringComparison.OrdinalIgnoreCase)))
                 {
                     Console.WriteLine("We don't grow that crop here! Please choose one of the available crops.");
                 }
-                else
-                {
-                    Console.WriteLine("Enter the amount of how much you want to remove.");
-                    try
-                    {
-                        int cropQuantity = int.Parse(Console.ReadLine());
-                        
-                        
-                        Crop selectedCrop = cropList.Find(crop => crop.CropType.ToLower() == cropName);
-                        selectedCrop.TakeCrop(cropQuantity);
 
-                        Console.WriteLine($"Removed {cropQuantity} of {selectedCrop.CropType}. You now have {selectedCrop.Quantity} of this crop");
-                        break;
-                    }
-                    catch (FormatException)
+                else if (cropList.Exists(crop => string.Equals(crop.CropType, cropName, StringComparison.OrdinalIgnoreCase)))
+                {
+                    Console.WriteLine("Enter the amount of how much you want to remove:");
+                    while (true)
                     {
-                        Console.WriteLine("Please enter a valid number.");
+                        
+                        try
+                        {
+                            int cropQuantity = int.Parse(Console.ReadLine());
+
+                            Crop selectedCrop = cropList.Find(crop => crop.CropType.ToLower() == cropName); // När man trycker enter här så går man till en ny rad
+                                                                                                            // vilket vi inte vill göra.
+                            selectedCrop.TakeCrop(cropQuantity);
+                            Console.Clear();
+                            Console.WriteLine($"Removed {cropQuantity} of {selectedCrop.CropType}. You now have {selectedCrop.Quantity} of this crop");
+                            Console.WriteLine("Press a key to go back to Crop Manager.");
+                            Console.ReadKey();
+                            CropMenu();
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Please enter a valid number.");
+                        }
                     }
                 }
             }
         }
-        public Crop GetCrops()
+        public Crop GetCrops()          // Var ska vi använda denna? Den används ingenstans. 
         {
             for (int i = 0; i < cropList.Count; i++)
             {
