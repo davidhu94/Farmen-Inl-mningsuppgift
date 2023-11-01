@@ -15,29 +15,29 @@ namespace Farmen_Inlämningsuppgift
 
         public string Name { get; set; }
             
-        public Animal(string species, string name, int id, string acceptableCropTypesString)
+        public Animal(string species, string name, int id, List<string> acceptableCropTypes)
             : base(id, name)
         {
             Species = species;
             Name = name;
             Id = id;
-            _acceptableCropTypes = acceptableCropTypesString.Split(',').Select(s => s.Trim().ToLower()).ToList();
+            _acceptableCropTypes = acceptableCropTypes.Select(s => s.Trim().ToLower()).ToList();
         }
 
         public override string GetDescription()
         {
-            return $"There is a {Species} named {Name} with Id {Id}, it eats: {string.Join(", ", acceptableCropTypes)}";
+            return $"There is a {Species} named {Name} with Id {Id}, it eats: {string.Join(", ", AcceptableCropTypes)}";
 
         }
 
-        public List<string> acceptableCropTypes
+        public List<string> AcceptableCropTypes
         {
             get { return _acceptableCropTypes; }
         }
 
         public void Feed(Crop chosenCrop, ref bool failedFeed)
         {
-            if (acceptableCropTypes.Contains(chosenCrop.CropType.ToLower()))
+            if (AcceptableCropTypes.Contains(chosenCrop.CropType.ToLower()))
             {
                 Console.WriteLine($"\n{Name} is eating the {chosenCrop.CropType}!");
                 chosenCrop.TakeCrop(1);

@@ -14,12 +14,12 @@ namespace Farmen_Inlämningsuppgift
 
         List<Animal> animalList = new List<Animal>();
         //BYT NAMN PÅ DJUREN
-        Animal animalPig = new Animal("Pig", "Joe", 1, "Carrot, Apple, Wheat, Potato, Corn, Hay, Beet, Bean, Cabbage, Pepper ");
-        Animal animalHorse = new Animal("Horse", "Joe", 2, "Carrot, Apple, Hay");
-        Animal animalCow = new Animal("Cow", "Joe", 3, "Wheat, Hay");
-        Animal animalGoat = new Animal("Goat", "Joe", 4, "Corn, Bean, Pepper");
-        Animal animalChicken = new Animal("Chicken", "Joe", 5, "Wheat, Bean, Potato, Cabbage");
-        Animal animalSheep = new Animal("Sheep", "Joe", 6, "Beet, Hay, Wheat, Apple");
+        Animal animalPig = new Animal("Pig", "Joe", 1, new List<string> { "Carrot", "Apple", "Wheat", "Potato", "Corn", "Hay", "Beet", "Bean", "Cabbage", "Pepper" });
+        Animal animalHorse = new Animal("Horse", "Joe", 2, new List<string> { "Carrot", "Apple", "Hay" });
+        Animal animalCow = new Animal("Cow", "Joe", 3, new List<string> { "Wheat", "Hay" });
+        Animal animalGoat = new Animal("Goat", "Joe", 4, new List<string> { "Corn", "Bean", "Pepper" });
+        Animal animalChicken = new Animal("Chicken", "Joe", 5, new List<string> { "Wheat", "Bean", "Potato", "Cabbage" });
+        Animal animalSheep = new Animal("Sheep", "Joe", 6, new List<string> { "Beet", "Hay", "Wheat", "Apple" });
 
         public AnimalManager()
         {
@@ -66,7 +66,6 @@ namespace Farmen_Inlämningsuppgift
                         Console.WriteLine("That is not a valid choice, choose from the menu and try again.");
                         break;
                 }
-
             }
             catch (FormatException)
             {
@@ -96,7 +95,7 @@ namespace Farmen_Inlämningsuppgift
                 AnimalMenu();
             }
         }
-                                      //FELMEDELANDEN FUNGERAR INTE I ADDANIMAL, OCH MAN KOMMER TILL MAINMENU EFTER ATT HA ADDAT ETT DJUR
+                                      
         private bool AddAnimal()
         {
             ViewAnimals();
@@ -130,40 +129,57 @@ namespace Farmen_Inlämningsuppgift
                         Console.WriteLine("Write a unique Id of the animal you want to add: ");
 
                         int uniqueId;
-                        if (int.TryParse(Console.ReadLine(), out uniqueId) && !animalList.Exists(animal => animal.Id == uniqueId))
+
+                        if (int.TryParse(Console.ReadLine(), out uniqueId))
                         {
-                            Console.Clear();
-
-                            Console.WriteLine("What name?");
-                            string inputName = Console.ReadLine();
-                            switch (inputSpecies)
+                            if(!animalList.Exists(animal => animal.Id == uniqueId))
                             {
-                                case 1:
-                                    animalList.Add(new Animal(animalPig.Species, inputName, uniqueId, string.Join(", ", animalPig.acceptableCropTypes)));
-                                    break;
-                                case 2:
-                                    animalList.Add(new Animal(animalHorse.Species, inputName, uniqueId, string.Join(", ", animalHorse.acceptableCropTypes)));
-                                    break;
-                                case 3:
-                                    animalList.Add(new Animal(animalCow.Species, inputName, uniqueId, string.Join(", ", animalCow.acceptableCropTypes)));
-                                    break;
-                                case 4:
-                                    animalList.Add(new Animal(animalGoat.Species, inputName, uniqueId, string.Join(", ", animalGoat.acceptableCropTypes)));
-                                    break;
-                                case 5:
-                                    animalList.Add(new Animal(animalChicken.Species, inputName, uniqueId, string.Join(", ", animalChicken.acceptableCropTypes)));
-                                    break;
-                                case 6:
-                                    animalList.Add(new Animal(animalSheep.Species, inputName, uniqueId, string.Join(", ", animalSheep.acceptableCropTypes)));
-                                    break;
+                                Console.Clear();
 
+                                Console.WriteLine("What name?");
+                                string inputName = Console.ReadLine();
+                                switch (inputSpecies)
+                                {
+                                    case 1:
+                                        animalList.Add(new Animal(animalPig.Species, inputName, uniqueId, animalPig.AcceptableCropTypes));
+                                        break;
+                                    case 2:
+                                        animalList.Add(new Animal(animalHorse.Species, inputName, uniqueId, animalHorse.AcceptableCropTypes));
+                                        break;
+                                    case 3:
+                                        animalList.Add(new Animal(animalCow.Species, inputName, uniqueId, animalCow.AcceptableCropTypes));
+                                        break;
+                                    case 4:
+                                        animalList.Add(new Animal(animalGoat.Species, inputName, uniqueId, animalGoat.AcceptableCropTypes));
+                                        break;
+                                    case 5:
+                                        animalList.Add(new Animal(animalChicken.Species, inputName, uniqueId, animalChicken.AcceptableCropTypes));
+                                        break;
+                                    case 6:
+                                        animalList.Add(new Animal(animalSheep.Species, inputName, uniqueId, animalSheep.AcceptableCropTypes));
+                                        break;
+                                }
+
+                                Console.Clear();
+
+                                Console.WriteLine("\nThe animal was successfully created!");
+                                Console.WriteLine("Press a key to continue...");
+                                Console.ReadKey();
+                                AnimalMenu();
                             }
-                            Console.Clear();
-
-                            Console.WriteLine("\nThe animal was successfully created!");
-                            Console.WriteLine("Press a key to continue...");
-                            Console.ReadKey();
+                            else
+                            {
+                                Console.WriteLine("\nThat ID is already taken, choose a different one.");
+                                Console.WriteLine("Press a key to try again...");
+                                Console.ReadKey();
+                            } 
                         }
+                        else
+                        {
+                            Console.WriteLine("\nPlease enter a valid number for the ID.");
+                            Console.WriteLine("Press a key to try again...");
+                            Console.ReadKey();
+                        }   
                     }
                     else
                     {
@@ -181,7 +197,7 @@ namespace Farmen_Inlämningsuppgift
             }
         }
                                  
-        private void RemoveAnimal()      //Ändra till int om vi hinner. Men då behöver vi ändra koden!!  private int RemoveAnimal(int)
+        private void RemoveAnimal()     
         {
             ViewAnimals();
 
