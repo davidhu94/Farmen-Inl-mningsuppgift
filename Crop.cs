@@ -51,8 +51,7 @@ namespace Farmen_Inlämningsuppgift
             {
                 
                 Quantity -= takeCropAmount;
-                Console.WriteLine($" nu är quantity {Quantity}");
-                
+           
                 Console.ReadKey();
                 return true;
             }

@@ -246,32 +246,21 @@ namespace Farmen_Inlämningsuppgift
         {
             ViewAnimals();
 
-            Console.WriteLine("\nWrite the ID of the animal you want to feed:");
-            Console.WriteLine("Press \"0\" to go back");
-            int chosenId = int.Parse(Console.ReadLine());
-            while (chosenId > animalList.Capacity) 
+            while (true)
             {
-                Console.WriteLine("Write an valid ID.");
-                continue;
-            }
-            try
-            {
-                
+                Console.WriteLine("\nWrite the ID of the animal you want to feed:");
+                Console.WriteLine("Press \"0\" to go back");
+                int chosenId;
+
+                if (!int.TryParse(Console.ReadLine(), out chosenId))
                 {
                     Console.WriteLine("Please enter a valid number.");
-                    Console.ReadKey();
-                    return;
+                    continue;
                 }
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("You need to write a number.");
-            }
-            
+
                 if (chosenId == 0)
                 {
                     AnimalMenu();
-                    return;
                 }
 
                 if (animalList.Exists(animal => animal.Id == chosenId))
@@ -309,16 +298,17 @@ namespace Farmen_Inlämningsuppgift
                         else
                         {
                             Console.WriteLine("The selected crop does not exist, choose from the list above.");
+                            continue;
                         }
-                        Console.ReadKey();
                     }
                     AnimalMenu();
+                    break;
                 }
-                else
+                else 
                 {
                     Console.WriteLine("There's no animal with that ID, try again.");
                 }
-            
+            }
         }
     }
 }      

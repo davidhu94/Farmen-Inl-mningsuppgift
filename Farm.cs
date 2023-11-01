@@ -11,11 +11,10 @@ namespace Farmen_Inlämningsuppgift
         CropManager cropManager = new CropManager();
         AnimalManager animalManager = new AnimalManager();
 
-        
-
         public void MainMenu()
         {
             animalManager.cropmanager = cropManager;
+
             bool continuing = true;
 
             while (continuing)
