@@ -99,7 +99,7 @@ namespace Farmen_Inlämningsuppgift
         private void AddCrop()
         {
             Console.Clear();
-            ViewCrops(true);
+            GetCrops();
 
             while (true)
             {
@@ -162,7 +162,7 @@ namespace Farmen_Inlämningsuppgift
         private void RemoveCrop()
         {
             Console.Clear();
-            ViewCrops(true);
+            GetCrops();
 
             while (true)
             {
@@ -218,7 +218,6 @@ namespace Farmen_Inlämningsuppgift
                                 Console.WriteLine("You didn't remove any crops!");
                             }
 
-
                         }
                         catch (Exception ex)
                         {
@@ -233,12 +232,15 @@ namespace Farmen_Inlämningsuppgift
             }
         }
 
-        public Crop GetCrops()          // Var ska vi använda denna? Den används ingenstans. 
+        public Crop GetCrops()          
         {
-            for (int i = 0; i < cropList.Count; i++)
+            Console.WriteLine("This is the crops we grow on the farm: ");
+            foreach (var crop in cropList)
             {
-                Console.WriteLine(cropList[i]);
+                Console.WriteLine(crop.GetDescription());
             }
+            Console.WriteLine("Press a key to continue");
+            Console.ReadKey();
             return null;
         }
     }

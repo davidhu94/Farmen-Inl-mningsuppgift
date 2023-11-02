@@ -110,8 +110,6 @@ namespace Farmen_Inlämningsuppgift
 
             while (true)
             {
-                
-
                 Console.WriteLine("What kind of animal do you want to add? Press 1-6");
                 Console.WriteLine("1. Pig");
                 Console.WriteLine("2. Horse");
@@ -132,8 +130,6 @@ namespace Farmen_Inlämningsuppgift
 
                     if (inputSpecies >= 1 && inputSpecies <= 6)
                     {
-                        
-
                         Console.WriteLine("Write a unique Id of the animal you want to add: ");
 
                         int uniqueId;
