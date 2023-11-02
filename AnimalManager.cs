@@ -12,6 +12,7 @@ namespace Farmen_Inlämningsuppgift
     {
         public CropManager cropmanager;
 
+        //Premade list that contains some animals and the user can add more
         List<Animal> animalList = new List<Animal>();
         
         Animal animalPig = new Animal("Pig", "Joe", 1, new List<string> { "Carrot", "Apple", "Wheat", "Potato", "Corn", "Hay", "Beet", "Bean", "Cabbage", "Pepper" });
@@ -31,10 +32,10 @@ namespace Farmen_Inlämningsuppgift
             animalList.Add(animalSheep);
         }
 
+        //Main menu for Animal Manager where the user choose what to do
         public void AnimalMenu()
         {
-            bool continuing = true;
-            while (continuing)
+            while (true)
             {
                 Console.Clear();
                 Console.WriteLine("Hello, I'm the Animal Manager!");
@@ -81,6 +82,7 @@ namespace Farmen_Inlämningsuppgift
             }
         }
 
+        //Function to view all the animals from the list of animals
         private void ViewAnimals(bool returnToMenu = false)
         {
             Console.Clear();
@@ -103,7 +105,8 @@ namespace Farmen_Inlämningsuppgift
                 return;
             }
         }
-                                      
+        
+        //Here the user can add one of the six different species of animals and add them to the list 
         private bool AddAnimal()
         {
             ViewAnimals();
@@ -199,7 +202,8 @@ namespace Farmen_Inlämningsuppgift
                 }
             }
         }
-                                 
+
+        //The user can remove an animal from the list                         
         private void RemoveAnimal()     
         {
             ViewAnimals();
@@ -242,9 +246,10 @@ namespace Farmen_Inlämningsuppgift
                     break;
                 }
             }
-            AnimalMenu();
+            return;
         }
 
+        //The user can feed the animals with the acceptable crop types of the specific animal
         private void FeedAnimals()
         {
             ViewAnimals();

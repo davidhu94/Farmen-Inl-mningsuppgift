@@ -35,6 +35,7 @@ namespace Farmen_Inlämningsuppgift
             get { return _acceptableCropTypes; }
         }
 
+        //Function to feed an animal, which calls for the math in the function takeCrop()
         public void Feed(Crop chosenCrop, ref bool failedFeed)
         {
             if (AcceptableCropTypes.Contains(chosenCrop.CropType.ToLower()))

@@ -8,7 +8,6 @@ namespace Farmen_Inlämningsuppgift
 {
     internal class Crop : Entity
     {
-        
         public string CropType { get; set; }
         public int Quantity { get; set; }
 
@@ -18,8 +17,6 @@ namespace Farmen_Inlämningsuppgift
             CropType = cropType;
             Quantity = quantity;
             Id = id;
-
-            
         }
 
         public override string GetDescription() 
@@ -27,6 +24,7 @@ namespace Farmen_Inlämningsuppgift
             return ($"Crop: {CropType}. Quantity: {Quantity}. Id: {Id}");
         }
 
+        //Here's the math to add quantity to a crop
         public void AddCrop(int addCropAmount)
         {
             if (addCropAmount > 0)
@@ -38,6 +36,8 @@ namespace Farmen_Inlämningsuppgift
                 Console.WriteLine("You need to add something!");
             }
         }
+
+        //Here's the math to remove quantity from a crop
         public bool TakeCrop(int takeCropAmount)
         {
             if (Quantity < takeCropAmount)

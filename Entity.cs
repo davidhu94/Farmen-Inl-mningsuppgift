@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Farmen_Inlämningsuppgift
 {
+    //Abstract class where Crop and Animal inherit from
     internal abstract class Entity
     {
         public int Id { get; set; }

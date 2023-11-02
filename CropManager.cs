@@ -9,6 +9,7 @@ namespace Farmen_Inlämningsuppgift
 {
     internal class CropManager
     {
+        //Premade list of existing crops where the user can change the quantity of the crops
         public List<Crop> cropList = new List<Crop>();
         Crop cropCarrot = new Crop("Carrot", 53, 1);
         Crop cropApple = new Crop("Apple", 25, 2);
@@ -35,10 +36,10 @@ namespace Farmen_Inlämningsuppgift
             cropList.Add(cropPepper);
         }
         
+        //Main menu for the crop manager where the user choose what to do
         public void CropMenu()
         {
-            bool continuing = true;
-            while (continuing)
+            while (true)
             {
                 Console.Clear();
                 Console.WriteLine("Hello, I'm the Crop Manager!");
@@ -79,7 +80,8 @@ namespace Farmen_Inlämningsuppgift
             }
         }
 
-       private void ViewCrops(bool returnToMenu = false)
+        //Function to view all the crops from the list of crops
+        private void ViewCrops(bool returnToMenu = false)
         {
             Console.WriteLine("This is the crops we grow on the farm: ");
             foreach (var crop in cropList)
@@ -96,6 +98,7 @@ namespace Farmen_Inlämningsuppgift
             }
         }
 
+        //Here the user can add quantity of a chosen crop 
         private void AddCrop()
         {
             Console.Clear();
@@ -159,6 +162,7 @@ namespace Farmen_Inlämningsuppgift
             }
         }
 
+        //Here the user can remove quantity of a crop
         private void RemoveCrop()
         {
             Console.Clear();
@@ -232,6 +236,7 @@ namespace Farmen_Inlämningsuppgift
             }
         }
 
+        //Get the crop list
         public Crop GetCrops()          
         {
             Console.WriteLine("This is the crops we grow on the farm: ");
