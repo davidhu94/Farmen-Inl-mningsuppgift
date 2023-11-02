@@ -46,7 +46,7 @@ namespace Farmen_Inlämningsuppgift
                 else
                 {
                     Console.WriteLine("You need to add something!");
-                    Console.WriteLine("Nu är vi i ELSE");
+                    Console.WriteLine("Nu är vi i ELSE g");
                     Console.ReadKey();
                 }
             }
