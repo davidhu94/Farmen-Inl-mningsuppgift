@@ -47,6 +47,7 @@ namespace Farmen_Inlämningsuppgift
                                                                 
                 try
                 {
+
                     int inputAnimalMenu = int.Parse(Console.ReadLine());
 
                     switch (inputAnimalMenu)
@@ -125,7 +126,7 @@ namespace Farmen_Inlämningsuppgift
                     int inputSpecies = int.Parse(Console.ReadLine());
                     if (inputSpecies == 0)
                     {
-                        AnimalMenu();
+                        
                         return false;
                     }
 
@@ -220,7 +221,7 @@ namespace Farmen_Inlämningsuppgift
 
                     if (removeId == 0)
                     {
-                        AnimalMenu();
+                        
                         return;
                     }
                 }
@@ -267,7 +268,7 @@ namespace Farmen_Inlämningsuppgift
 
                 if (chosenId == 0)  
                 {
-                    AnimalMenu();
+                    
                     break;
                 }
 
@@ -309,7 +310,7 @@ namespace Farmen_Inlämningsuppgift
                             continue;
                         }
                     }
-                    AnimalMenu();
+                    //AnimalMenu();
                     break;
                 }
                 else 
