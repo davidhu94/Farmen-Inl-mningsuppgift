@@ -10,16 +10,16 @@ namespace Farmen_Inlämningsuppgift
     internal class CropManager
     {
         public List<Crop> cropList = new List<Crop>();
-        Crop cropCarrot = new Crop("Carrot", 53, 20);
-        Crop cropApple = new Crop("Apple", 25, 21);
-        Crop cropWheat = new Crop("Wheat", 76, 22);
-        Crop cropPotato = new Crop("Potato", 128, 23);
-        Crop cropCorn = new Crop("Corn", 98, 24);
-        Crop cropHay = new Crop("Hay", 44, 25);
-        Crop cropBeet = new Crop("Beet", 37, 26);
-        Crop cropBean = new Crop("Bean", 234, 27);
-        Crop cropCabbage = new Crop("Cabbage", 89, 28);
-        Crop cropPepper = new Crop("Pepper", 77, 29);
+        Crop cropCarrot = new Crop("Carrot", 53, 1);
+        Crop cropApple = new Crop("Apple", 25, 2);
+        Crop cropWheat = new Crop("Wheat", 76, 3);
+        Crop cropPotato = new Crop("Potato", 128, 4);
+        Crop cropCorn = new Crop("Corn", 98, 5);
+        Crop cropHay = new Crop("Hay", 44, 6);
+        Crop cropBeet = new Crop("Beet", 37, 7);
+        Crop cropBean = new Crop("Bean", 234, 8);
+        Crop cropCabbage = new Crop("Cabbage", 89, 9);
+        Crop cropPepper = new Crop("Pepper", 77, 10);
 
         public CropManager()
         {
@@ -98,6 +98,7 @@ namespace Farmen_Inlämningsuppgift
 
         private void AddCrop()
         {
+            Console.Clear();
             ViewCrops(true);
 
             while (true)
@@ -108,7 +109,7 @@ namespace Farmen_Inlämningsuppgift
 
                 if (!int.TryParse(Console.ReadLine(), out cropId))
                 {
-                    Console.WriteLine("Please enter a valid number.");
+                    Console.WriteLine("Please enter a valid ID.");
                     continue;
                 }
 
@@ -137,10 +138,17 @@ namespace Farmen_Inlämningsuppgift
                             Crop selectedCrop = cropList.Find(crop => crop.Id == cropId);
                             selectedCrop.AddCrop(cropQuantity);
                             Console.Clear();
-                            Console.WriteLine($"You've added {cropQuantity} {selectedCrop.CropType}. You now have {selectedCrop.Quantity} of this crop.");
+                            if (cropQuantity > 0)
+                            {
+                                Console.WriteLine($"You've added {cropQuantity} {selectedCrop.CropType}. You now have {selectedCrop.Quantity} of this crop.");
+                                Console.WriteLine("Press a key to go back to Crop Manager.");
+                                Console.ReadKey();
+                                return;
+                            }
+                            Console.WriteLine("You didn't add any crops.");
                             Console.WriteLine("Press a key to go back to Crop Manager.");
                             Console.ReadKey();
-                            CropMenu();
+                            return;
                         }
                         catch (Exception ex)
                         {
@@ -153,17 +161,18 @@ namespace Farmen_Inlämningsuppgift
 
         private void RemoveCrop()
         {
+            Console.Clear();
             ViewCrops(true);
 
             while (true)
             {
-                Console.WriteLine("\nEnter the ID of the crop you want to add:");
+                Console.WriteLine("\nEnter the ID of the crop you want to remove:");
                 Console.WriteLine("Press \"0\" to go back:");
                 int cropId;
 
                 if (!int.TryParse(Console.ReadLine(), out cropId))
                 {
-                    Console.WriteLine("Please enter a valid number.");
+                    Console.WriteLine("Please enter a valid ID.");
                     continue;
                 }
 
@@ -192,15 +201,33 @@ namespace Farmen_Inlämningsuppgift
                             Crop selectedCrop = cropList.Find(crop => crop.Id == cropId);
                             selectedCrop.TakeCrop(cropQuantity);
                             Console.Clear();
-                            Console.WriteLine($"You've removed {cropQuantity} {selectedCrop.CropType}. You now have {selectedCrop.Quantity} of this crop.");
-                            Console.WriteLine("Press a key to go back to Crop Manager.");
-                            Console.ReadKey();
-                            return;
+                            if (cropQuantity <= selectedCrop.Quantity && cropQuantity >= 0)
+                            {
+                                Console.WriteLine($"You've removed {cropQuantity} {selectedCrop.CropType}. You now have {selectedCrop.Quantity} of this crop.");
+                                Console.WriteLine("Press a key to go back to Crop Manager.");
+                                Console.ReadKey();
+                                return;
+
+                            }
+                            else if (cropQuantity > selectedCrop.Quantity)
+                            {
+                                Console.WriteLine("You dont't have that many crops.");
+                            }
+                            else if (cropQuantity <= 0)
+                            {
+                                Console.WriteLine("You didn't remove any crops!");
+                            }
+
+
                         }
                         catch (Exception ex)
                         {
                             Console.WriteLine("Please enter a valid number.");
+                            continue;
                         }
+                        Console.WriteLine("Press a key to go back to Crop Manager.");
+                        Console.ReadKey();
+                        return;
                     }
                 }
             }

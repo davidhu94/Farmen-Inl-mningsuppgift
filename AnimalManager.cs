@@ -13,13 +13,13 @@ namespace Farmen_Inlämningsuppgift
         public CropManager cropmanager;
 
         List<Animal> animalList = new List<Animal>();
-        //BYT NAMN PÅ DJUREN
+        
         Animal animalPig = new Animal("Pig", "Joe", 1, new List<string> { "Carrot", "Apple", "Wheat", "Potato", "Corn", "Hay", "Beet", "Bean", "Cabbage", "Pepper" });
-        Animal animalHorse = new Animal("Horse", "Joe", 2, new List<string> { "Carrot", "Apple", "Hay" });
-        Animal animalCow = new Animal("Cow", "Joe", 3, new List<string> { "Wheat", "Hay" });
-        Animal animalGoat = new Animal("Goat", "Joe", 4, new List<string> { "Corn", "Bean", "Pepper" });
-        Animal animalChicken = new Animal("Chicken", "Joe", 5, new List<string> { "Wheat", "Bean", "Potato", "Cabbage" });
-        Animal animalSheep = new Animal("Sheep", "Joe", 6, new List<string> { "Beet", "Hay", "Wheat", "Apple" });
+        Animal animalHorse = new Animal("Horse", "Bob", 2, new List<string> { "Carrot", "Apple", "Hay" });
+        Animal animalCow = new Animal("Cow", "Ulla", 3, new List<string> { "Wheat", "Hay" });
+        Animal animalGoat = new Animal("Goat", "John", 4, new List<string> { "Corn", "Bean", "Pepper" });
+        Animal animalChicken = new Animal("Chicken", "Peter", 5, new List<string> { "Wheat", "Bean", "Potato", "Cabbage" });
+        Animal animalSheep = new Animal("Sheep", "Pia", 6, new List<string> { "Beet", "Hay", "Wheat", "Apple" });
 
         public AnimalManager()
         {
@@ -37,13 +37,13 @@ namespace Farmen_Inlämningsuppgift
             while (continuing)
             {
                 Console.Clear();
-                Console.WriteLine("Hello, I'm the animal manager!");
+                Console.WriteLine("Hello, I'm the Animal Manager!");
                 Console.WriteLine("What do you want to do?");
                 Console.WriteLine("\nPress \"1\" to view the animals");
                 Console.WriteLine("Press \"2\" to add an animal");
                 Console.WriteLine("Press \"3\" to remove an animal");
                 Console.WriteLine("Press \"4\" to feed the animals");
-                Console.WriteLine("Press \"0\" to go back");     // Varje gång vi går in i en meny, behöver vi trycka på 0 flera gånger för att gå bakåt.
+                Console.WriteLine("Press \"0\" to go back");     
                                                                 
                 try
                 {
@@ -100,7 +100,7 @@ namespace Farmen_Inlämningsuppgift
 
             if (returnToMenu == true)
             {
-                AnimalMenu();
+                return;
             }
         }
                                       
@@ -110,7 +110,7 @@ namespace Farmen_Inlämningsuppgift
 
             while (true)
             {
-                //Console.Clear();
+                
 
                 Console.WriteLine("What kind of animal do you want to add? Press 1-6");
                 Console.WriteLine("1. Pig");
@@ -132,7 +132,7 @@ namespace Farmen_Inlämningsuppgift
 
                     if (inputSpecies >= 1 && inputSpecies <= 6)
                     {
-                        //Console.Clear();
+                        
 
                         Console.WriteLine("Write a unique Id of the animal you want to add: ");
 
@@ -142,7 +142,6 @@ namespace Farmen_Inlämningsuppgift
                         {
                             if(!animalList.Exists(animal => animal.Id == uniqueId))
                             {
-                                //Console.Clear();
 
                                 Console.WriteLine("What name?");
                                 string inputName = Console.ReadLine();
@@ -310,7 +309,6 @@ namespace Farmen_Inlämningsuppgift
                             continue;
                         }
                     }
-                    //AnimalMenu();
                     break;
                 }
                 else 

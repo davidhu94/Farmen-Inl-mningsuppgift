@@ -39,7 +39,8 @@ namespace Farmen_Inlämningsuppgift
         {
             if (AcceptableCropTypes.Contains(chosenCrop.CropType.ToLower()))
             {
-                Console.WriteLine($"\n{Name} is eating the {chosenCrop.CropType}!");
+                Console.WriteLine($"\n{Name} is eating the {chosenCrop.CropType}! Press a key to continue.");
+                Console.ReadKey();
                 chosenCrop.TakeCrop(1);
                 failedFeed = false;
             }
