@@ -29,13 +29,26 @@ namespace Farmen_Inlämningsuppgift
 
         public void AddCrop(int addCropAmount) 
         {
-            if (addCropAmount > 0)
+            while (true)
             {
-                Quantity += addCropAmount;
-            }
-            else
-            {
-                Console.WriteLine("You need to add something!");
+                if (addCropAmount > 0)
+                {
+                    Quantity += addCropAmount;
+                    Console.WriteLine("Nu är vi i IF");
+                    Console.ReadKey();
+                    break;
+
+                }
+                else if(addCropAmount < 0)
+                {
+                    Console.WriteLine("Negative number!");
+                }
+                else
+                {
+                    Console.WriteLine("You need to add something!");
+                    Console.WriteLine("Nu är vi i ELSE");
+                    Console.ReadKey();
+                }
             }
         }
 
